@@ -2,6 +2,8 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import pathlib
 
+baseDirectory = './'
+
 def main():
   # base contains the head element and the first two boxes
   base = ''''''
@@ -32,7 +34,7 @@ def main():
 
 def generatePage(head, body, number, last):
   # print(body)
-  pathlib.Path('./' + str(number)).mkdir(parents=True, exist_ok=True)
+  pathlib.Path(baseDirectory + str(number)).mkdir(parents=True, exist_ok=True)
   prevPage = '<div class="box"><a href="/' + str(number - 1) + '">Previous</a></div>\n'
   nextPage = '<div class="box"><a href="/' + str(number + 1) + '">Next</a></div>\n'
   html = head + '<body>\n' + body
@@ -41,10 +43,10 @@ def generatePage(head, body, number, last):
   if not last:
     html += nextPage
   html += '</body>'
-  with open('./' + str(number) + "/index.html", "w") as file:
+  with open(baseDirectory + str(number) + "/index.html", "w") as file:
     file.write(html)
   if number == 1:
-    with open('./index.html', 'w') as file:
+    with open(baseDirectory + 'index.html', 'w') as file:
       file.write(html)
 
   # generate html
